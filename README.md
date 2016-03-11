@@ -23,3 +23,5 @@ require(['jquery', 'mplui'], function($, mplui) {
 	$('a.sms').each(mplui.$sms);
 });
 ```
+
+test page : http://crucifyer.github.io/mplui/
