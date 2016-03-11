@@ -1,6 +1,13 @@
 # Mobile Phone Link Unified Interface
 tel:, sms: link unified interface
 
+problem
+```html
+<a href="sms:01022223333?body=text message">android</a>
+<a href="sms:01022223333;body=text message">old iOS</a>
+<a href="sms:01022223333&body=text message">new iOS</a>
+```
+
 need require.js
 ```javascript
 require(['mplui'], function(mplui) {
