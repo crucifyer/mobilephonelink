@@ -16,6 +16,7 @@ with jQuery
 ```html
 <a href="#" class="tel" data-number="010-2222-3333">call</a>
 <a href="#" class="sms" data-number="010-2222-3333" data-text="your message">sms</a>
+<a href="#" class="sms this is iOS bug" data-number="010-2222-3333" data-text="href ignored in safari. always call.">010-2222-3333</a>
 ```
 ```javascript
 require(['jquery', 'mplui'], function($, mplui) {
