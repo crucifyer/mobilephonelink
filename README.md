@@ -20,6 +20,6 @@ with jQuery
 ```javascript
 require(['jquery', 'mplui'], function($, mplui) {
 	$('a.tel').each(mplui.$tel);
-	$('a.sms').each(mplui.sms);
+	$('a.sms').each(mplui.$sms);
 });
 ```
