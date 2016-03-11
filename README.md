@@ -14,8 +14,8 @@ require(['mplui'], function(mplui) {
 
 with jQuery
 ```html
-<a href="#" class="tel">010-2222-3333</a>
-<a href="#" class="sms" data-text="your message">010-2222-3333</a>
+<a href="#" class="tel" data-number="010-2222-3333">call</a>
+<a href="#" class="sms" data-number="010-2222-3333" data-text="your message">sms</a>
 ```
 ```javascript
 require(['jquery', 'mplui'], function($, mplui) {
