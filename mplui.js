@@ -7,32 +7,42 @@
 // | License : MIT                                          |
 // +--------------------------------------------------------+
 //
-// $Id: mplui.js, 2016. 3. 11. crucify Exp $
+// $Id: mplui.js, 2022. 6. 6. crucify Exp $
 
-define(function() {
-	var s = (function() {
-			if(/OS (\d+)_\d+_\d+ like Mac OS X/.test(navigator.userAgent)) {
-				return RegExp.$1 > '7' ? '&' : ';';
-			} else {
-				return '?';
-			}
-		})(),
-		mplui = {
-			tel: function(tel) {
-				return 'tel:' + tel.replace(/[^\d]+/g, '');
-			},
-			$tel: function() {
-				this.href = mplui.tel($(this).data('number'));
-			},
-			sms: function(sms, body) {
-				var res = 'sms:' + sms.replace(/[^\d]+/g, '');
-				if(body) res += s + 'body=' + body;
-				return res;
-			},
-			$sms: function() {
-				this.href = mplui.sms($(this).data('number'), $(this).data('text'));
-			}
-		};
+(function() {
+	let s = /OS (\d+)_\d+(?:_\d+)? like Mac OS X/.test(navigator.userAgent) ? (RegExp.$1 * 1 > 7 ? '&' : ';') : '?';
+	function tel(o) {
+		if(typeof(o) == 'string') {
+			return 'tel:' + o.replace(/[^\d]+/g, '');
+		}
+		if(o.forEach) {
+			o.forEach(b => { tel(b); });
+			return;
+		}
+		o.href = tel(o.getAttribute('data-number'));
+	}
 
-	return mplui;
-});
+	function sms(o, body) {
+		if(typeof(o) == 'string') {
+			let res = 'sms:' + o.replace(/[^\d]+/g, '');
+			if(body) res += s + 'body=' + body;
+			return res;
+		}
+		if(o.forEach) {
+			o.forEach(b => { sms(b); });
+			return;
+		}
+		o.href = sms(o.getAttribute('data-number'), o.getAttribute('data-text'));
+	}
+
+	let mplui = {
+		tel: tel,
+		sms: sms,
+	};
+
+	if(window.define) {
+		define(() => mplui);
+	} else {
+		window.mplui = mplui;
+	}
+})();
